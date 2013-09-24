@@ -1,0 +1,27 @@
+<html>
+    <head>
+        <script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
+        <script>
+            $(document).ready(function() {
+                $("#rolly")
+                    .mouseover(function() {
+                        $(this).css("backgroundPosition", "0 40")
+                    })
+                    .mouseout(function() {
+                        $(this).css("backgroundPosition", "0 0")
+                    })
+            })
+        </script>
+        
+        <style>
+            #rolly {
+                width: 120px;
+                height: 40px;
+                background-image: url(buttonSprite.png);
+            }
+        </style>
+    </head>
+    <body>
+        <div id="rolly"></div>
+    </body>
+</html>
