@@ -1,0 +1,75 @@
+<htmL>
+    <head>
+        <script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
+        <script>
+            $(document).ready(function() {
+                $(".selectionBox")
+                    .mouseover(function() {
+                        var marker = $(this).find(".marker");
+                        var title = $(this).find('.title');
+                        
+                        marker.stop().animate(
+                            { left: 30 }, 
+                            300
+                        );
+                        
+                        title.delay(200).stop().animate(
+                            { left: 70 },
+                            300
+                        )
+                    })
+                    .mouseout(function() {
+                        var marker = $(this).find(".marker");
+                        var title = $(this).find('.title');
+                        
+                        marker.stop().animate(
+                            { left: 15 }, 
+                            300
+                        );
+                        
+                        title.delay(200).stop().animate(
+                            { left: 50 },
+                            300
+                        )
+                    })
+            });
+        </script>
+        <style>
+            .selectionBox {
+                width: 300px;
+                height: 100px;
+                background: #009999;
+                margin: 20px;
+                position: relative; 
+            }
+            
+            .marker {
+                top: 45px;
+                left: 15px;
+                position: absolute;
+            }
+            
+            .title {
+                top: 45px;
+                left: 50px;
+                position: absolute;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="selectionBox">
+            <div class='marker'>&clubs;</div>
+            <div class='title'>Clubs!</div>
+        </div>
+        
+        <div class="selectionBox">
+            <div class='marker'>&hearts;</div>
+            <div class='title'>Hearts!</div>
+        </div>
+        
+        <div class="selectionBox">
+            <div class='marker'>&diams;</div>
+            <div class='title'>Diamonds!</div>
+        </div>
+    </body>
+</htmL>
