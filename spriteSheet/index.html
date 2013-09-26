@@ -1,0 +1,119 @@
+<html>
+    <head>
+        <script>
+            
+            var ctx, mySprite;
+            var keys = {};
+            
+            function init() {
+                
+                var canvas = document.getElementById("myCanv");
+                ctx = canvas.getContext('2d');
+                mySprite = new Sprite("assets/sheet.png", 32, 65);
+                mySprite.addAnimation("walk", [4,5,0,3,5,1]);
+                //mySprite.addAnimation("walk", [1]);
+                mySprite.play("walk");
+                
+               requestAnimationFrame(update);
+            }
+            
+            function update() {
+                ctx.clearRect(0,0,400,300);
+                mySprite.update();
+                
+                if(keys[37]) {
+                    mySprite.scale.x = -1;
+                    mySprite.x --;
+                }
+                
+                if(keys[39]) {
+                    mySprite.scale.x = 1;
+                    mySprite.x ++;
+                }
+                
+                requestAnimationFrame(update);
+            }
+            
+            document.addEventListener('keydown', function(event) {
+                keys[event.keyCode] = true;
+            });
+            
+            document.addEventListener('keyup', function(event) {
+                keys[event.keyCode] = false;
+            });
+            
+            function Sprite(sheetUrl, swidth, sheight) {
+                
+                var me = this;
+                
+                this.image = new Image();
+                this.image.src = sheetUrl;
+                
+                this.image.addEventListener("load", function() {
+                    //calc number of frames per line
+                    me.perLine = Math.floor( me.image.width / swidth );
+                    //calc number of lines
+                    me.rows = Math.floor( me.image.height / sheight );
+                });
+                
+                me.width = swidth;
+                me.height = sheight;
+                
+                this.update = function() {
+                    
+                    //position
+                    
+                    //draw
+                    this.dcount ++;
+                    if(this.dcount >= this.delay) {
+                        this.dcount = 0;
+                        this.curFrame ++;
+                        
+                        if(this.curFrame >= me.animations[me.curAnimation].length) {
+                            this.curFrame = 0;
+                        }
+                        
+                        //set row & col position
+                        this.framePosition.row = Math.floor( me.animations[me.curAnimation][me.curFrame] / me.perLine );
+                        this.framePosition.col = me.animations[me.curAnimation][me.curFrame] % me.perLine;
+                    }
+                    
+                    ctx.save();
+                    //ctx.translate(me.width,0);
+                    ctx.scale(me.scale.x, me.scale.y);
+                    ctx.drawImage(mySprite.image, this.framePosition.col * me.width, this.framePosition.row * me.height, me.width, me.height, this.scale.x * this.x, this.scale.y * this.y, me.width, me.height);
+                    ctx.restore();
+                }
+            }
+            
+            Sprite.prototype.x = 0;
+            Sprite.prototype.y = 0;
+            Sprite.prototype.curFrame = 0;
+            Sprite.prototype.width = 0;
+            Sprite.prototype.height = 0;
+            Sprite.prototype.delay = 10;
+            Sprite.prototype.dcount = 0;
+            Sprite.prototype.perLine = 0;
+            Sprite.prototype.rows = 0;
+            Sprite.prototype.framePosition = {col:0, row:0};
+            Sprite.prototype.curAnimation = "";
+            Sprite.prototype.animations = [];
+            Sprite.prototype.scale = { x: 1, y: 1 };
+            
+            Sprite.prototype.addAnimation = function(name, frames) {
+                this.animations[name] = frames;
+            }
+            
+            Sprite.prototype.play =  function(name) {
+                this.dcount = this.delay;
+                this.curFrame = 0;
+                this.curAnimation = name;
+            }
+
+            window.onload = init;
+        </script>
+    </head>
+    <body>
+        <canvas id="myCanv" width="400" height="300"></canvas>
+    </body>
+</html>
