@@ -9,28 +9,9 @@
         <link rel="shortcut icon" href="" />
         <link rel="apple-touch-icon" href="" />
         <!-- Shit ton of other icons because of vendors, ppi, etc -->
-        <script>
-            //will all be moved to external script. Soon.
-            var vid;
 
-            function init() {
-                vid = document.getElementsByTagName("video")[0];
-            }
-
-            function play() {
-                //seek to 2 seconds
-                vid.currentTime = 2;
-                vid.play();
-            }
-
-            function pause() {
-                vid.pause();
-            }
-            window.onload = init;
-        </script>
-        <style>
-
-        </style>
+        <!-- Make it pretty! -->
+        <link rel="stylesheet" href="css/styles.css" />
     </head>
     <body>
         <section>
@@ -43,5 +24,7 @@
                 <button onclick="play()">Play</button>
             </div>
         </section>
+    <!-- Scripts at the bottom of the body!! -->
+    <script src="js/video.js"></script>
     </body>
 </html>
