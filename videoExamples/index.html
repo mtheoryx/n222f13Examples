@@ -15,17 +15,22 @@
         <link rel="stylesheet" href="css/styles.css" />
     </head>
     <body>
+        <p class="notice" id="no-js-notice">Javascript is currently disabled. For the best experience here, please <a href="http://enable-javascript.com/"> enable Javascript in your browser</a>!
+    </p>
         <section>
-            <video autoplay loop controls>
+            <video loop controls>
                 <source src="http://v2v.cc/~j/theora_testsuite/320x240.ogg" />
                 Your browser does not support the video tag, loser.
             </video>
-            <div class="controls">
-                <button onclick="pause()">Pause</button>
-                <button onclick="play()">Play</button>
+            <div>
+                <button id="pause-control" class="control">Pause</button>
+                <button id="play-control" class="control">Play</button>
             </div>
         </section>
     <!-- Scripts at the bottom of the body!! -->
     <script src="js/video.js"></script>
+    <script>
+        document.getElementById('no-js-notice').className += " hide";
+    </script>
     </body>
 </html>
